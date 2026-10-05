@@ -110,3 +110,10 @@ td:nth-child(n+3){white-space:nowrap;padding-left:10px}td:last-child{font-weight
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 #root{flex:1;min-height:0;display:flex;flex-direction:column}
 .btn:disabled{opacity:.6;cursor:progress;transform:none}
+/* about section */
+.more{padding:28px 0 8px;border-top:1px solid var(--line);color:var(--mu);font-size:14px}
+.more p{margin:0 0 12px;max-width:52ch}
+.more h3{margin:20px 0 8px;font:700 14px Manrope,sans-serif;color:var(--tx)}
+.more ul{margin:0;padding-left:18px}.more li{margin-bottom:6px}
+.more .lnk{list-style:none;padding:0}
+.more a{color:var(--acc);text-decoration:underline;text-underline-offset:3px}.more a:hover{color:var(--acc2)}

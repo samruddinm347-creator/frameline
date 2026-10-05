@@ -4,6 +4,7 @@ import type { Totals } from '../lib/calc'
 import { toNum } from '../lib/calc'
 import { CURRENCIES, formatMoney } from '../lib/currency'
 import LogoUpload from './LogoUpload'
+import { PAGES, getPage } from '../lib/pages'
 
 type Set = <K extends keyof Invoice>(k: K, v: Invoice[K]) => void
 
@@ -14,6 +15,7 @@ function Fld({ label, full, ...p }: { label: string; full?: boolean } & InputHTM
 
 export default function Editor({ inv, set, T }: { inv: Invoice; set: Set; T: Totals }) {
   const [out, setOut] = useState<string | null>(null)
+  const page = getPage()
   const t = (k: keyof Invoice, label: string, o: { full?: boolean } & InputHTMLAttributes<HTMLInputElement> = {}) =>
     <Fld label={label} value={inv[k] as string} onChange={e => set(k, e.target.value as never)} {...o} />
 
@@ -36,8 +38,9 @@ export default function Editor({ inv, set, T }: { inv: Invoice; set: Set; T: Tot
   }
 
   return (
+    <>
     <form onSubmit={e => e.preventDefault()} aria-label="Invoice details">
-      <div className="hero"><h1>Your work deserves a better invoice.</h1><p>Fill in the details, then download a PDF. No account needed.</p></div>
+      <div className="hero"><h1>{page.h1}</h1><p>{page.intro}</p></div>
       <section className="sec"><h2 className="st">Your studio</h2><div className="g">
         {t('studioName', 'Studio or photographer name', { full: true, placeholder: 'Aarav Mehta Photography' })}
         <LogoUpload value={inv.logo} onChange={v => set('logo', v)} />
@@ -113,5 +116,14 @@ export default function Editor({ inv, set, T }: { inv: Invoice; set: Set; T: Tot
       </div>
       <p className="priv">Your invoice stays in your browser. No account required.</p></section>
     </form>
+    <aside className="more">
+      <h2 className="st">About this invoice</h2>
+      {page.about.map(t => <p key={t}>{t}</p>)}
+      <h3>Tips</h3>
+      <ul>{page.tips.map(t => <li key={t}>{t}</li>)}</ul>
+      <h3>More invoice pages</h3>
+      <ul className="lnk">{PAGES.filter(x => x.path !== page.path).map(x => <li key={x.path}><a href={x.path}>{x.label}</a></li>)}</ul>
+    </aside>
+    </>
   )
 }
