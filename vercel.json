@@ -1,1 +1,11 @@
-{ "framework": "vite", "buildCommand": "npm run build", "outputDirectory": "dist", "cleanUrls": true }
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/wedding-photography-invoice", "destination": "/wedding-photography-invoice.html" },
+    { "source": "/photo-studio-bill-format", "destination": "/photo-studio-bill-format.html" },
+    { "source": "/photography-invoice-template", "destination": "/photography-invoice-template.html" },
+    { "source": "/product-photography-invoice", "destination": "/product-photography-invoice.html" }
+  ]
+}
